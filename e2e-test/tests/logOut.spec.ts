@@ -1,6 +1,5 @@
 import { test, expect } from '@playwright/test';
 import { TodoPage } from '../pageObjects/todo';
-import { testData } from '../testdata/userStory1';
 
 test.use({ storageState: '.auth/user.json' });
 
