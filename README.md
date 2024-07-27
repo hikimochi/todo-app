@@ -3,6 +3,9 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 ## Getting Started
 Run the following commands
 
+
+aaa
+
 ```bash
 npm install or pnpm install
 # Set the environment variable
