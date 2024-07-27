@@ -8,6 +8,10 @@ jobs:
   api-test:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    env:
+      API_TEST_BASEURL: ${{ secrets.API_TEST_BASEURL }}
+      API_TEST_EMAIL: ${{ secrets.API_TEST_EMAIL }}
+      API_TEST_PASSWORD: ${{ secrets.API_TEST_PASSWORD }}
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -23,4 +27,7 @@ jobs:
       - name: run app background
         run: pnpm run dev &
         shell: bash
-      - run: echo 'runn'
+      - uses: k2tzumi/runn-action@latest
+        with:
+          path_pattern: api-test/tests/*.yaml
+        
