@@ -126,7 +126,7 @@ export class TodoPage {
         titleTextBox: page.getByRole('textbox', { name: 'Title Title*', exact: true }),
         descriptionTextBox: page.getByRole('textbox', { name: 'Description Description', exact: true }),
         openCalenderButton: page.getByRole('button', { name: 'Pick a date', exact: true }),
-        statusButton: page.getByLabel('Active,').locator('//span').last(),
+        statusButton: page.getByLabel('Active,').locator('//label'),
         backButton: page.getByRole('button', { name: 'Back', exact: true }),
         createButton: page.getByRole('button', { name: 'Create', exact: true }),
       },
@@ -147,10 +147,9 @@ export class TodoPage {
     await this.main.addTodoDialog.titleTextBox.fill(title);
     await this.main.addTodoDialog.descriptionTextBox.fill(description);
     await this.main.addTodoDialog.openCalenderButton.click();
-    console.log(dueDate.getDate());
     await this.page.getByRole('gridcell', { name: `${dueDate.getDate()}`, exact: true }).click();
     await this.main.addTodoDialog.statusButton.click();
-    await this.page.getByRole('option', { name: status, exact: true }).click();
+    //    await this.page.getByRole('option', { name: status, exact: true }).click();
 
     const responsePromise = this.page.waitForResponse('**/todo');
     await this.main.addTodoDialog.createButton.click();
