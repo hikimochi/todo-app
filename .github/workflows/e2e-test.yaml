@@ -20,7 +20,9 @@ jobs:
           cache-dependency-path: pnpm-lock.yaml
           registry-url: "https://npm.pkg.github.com/"
           node-version: 22
-      - run: pnpm i & pnpm exec playwright install chromium
+      - run: pnpm i
+        shell: bash
+      - run: pnpm playwright install chromium
         shell: bash
       - run: pnpm playwright test --project=todo-app
         env:
