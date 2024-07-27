@@ -38,7 +38,7 @@ export default defineConfig({
     { name: 'setup', testMatch: '/setup/*.ts' },
 
     {
-      name: 'chromium',
+      name: 'todo-app',
       testMatch: '/tests/*.ts',
       use: { ...devices['Desktop Chrome'] },
       dependencies: ['setup'],
