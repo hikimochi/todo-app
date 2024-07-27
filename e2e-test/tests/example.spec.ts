@@ -1,18 +1,21 @@
 import { test, expect } from '@playwright/test';
+import { EntrancePage } from '../pageObjects/entrance';
+import { TodoPage } from '../pageObjects/todo';
+
+test.use({ storageState: '.auth/user.json' });
 
 test('has title', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
+  const entrancePageObject = new EntrancePage(page);
 
-  // Expect a title "to contain" a substring.
-  await expect(page).toHaveTitle(/Playwright/);
-});
+  await page.goto('/');
 
-test('get started link', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
+  await entrancePageObject.getStartNowButton.click();
 
-  // Click the get started link.
-  await page.getByRole('link', { name: 'Get started' }).click();
+  await expect(page.getByRole('heading', { name: 'To-Do', exact: true })).toBeVisible();
 
-  // Expects page to have a heading with the name of Installation.
-  await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
+  const todoPageObject = new TodoPage(page);
+
+  await todoPageObject.header.swithThemeToggle.click();
+
+  await page.waitForTimeout(5 * 1000);
 });
