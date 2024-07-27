@@ -27,3 +27,5 @@ jobs:
       - run: pnpm playwright test --project=todo-app
         env:
           BASE_URL: https://todo-app-qajp.vercel.app
+          EMAIL: ${{ secrets.EMAIL }}
+          PASSWORD: ${{ secrets.PASSWORD }}
