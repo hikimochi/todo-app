@@ -28,6 +28,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "dist/types/**/*.ts"
-  ],
+, "__tests__/app-login.test.js"  ],
   "exclude": ["node_modules"]
 }
