@@ -1,4 +1,4 @@
-name: 'lint and test'
+name: "lint and test"
 
 on:
   pull_request:
@@ -15,7 +15,7 @@ jobs:
         with:
           cache: pnpm
           cache-dependency-path: pnpm-lock.yaml
-          registry-url: 'https://npm.pkg.github.com/'
+          registry-url: "https://npm.pkg.github.com/"
           node-version: 22
       - run: pnpm i
         shell: bash
@@ -23,13 +23,19 @@ jobs:
         shell: bash
 
   unit-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - run: echo 'test'
 
   api-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - run: echo 'runn'
 
   e2e-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - run: echo 'playwright'
