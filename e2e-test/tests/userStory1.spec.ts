@@ -17,5 +17,10 @@ test('As a new user, I want to sign up for an account so that I can save my to-d
     await todoPageObject.addTodo(testData.todoAttributes);
   });
 
-  await page.waitForTimeout(5 * 1000);
+  await test.step('追加した Todo がテーブルに表示されていること', async () => {
+    await todoPageObject.main.searchTextBox.fill(testData.todoAttributes.title);
+    await expect(page.getByRole('rowheader', { name: `${testData.todoAttributes.title}` })).toBeVisible({
+      timeout: 60 * 1000,
+    });
+  });
 });
