@@ -1,0 +1,46 @@
+name: "visual regression test"
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  e2e-test:
+    runs-on: ubuntu-latest
+    # defaults:
+    #     run:
+    #       working-directory: e2e-test
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+          registry-url: "https://npm.pkg.github.com/"
+          node-version: 22
+      - run: pnpm i
+        shell: bash
+      - run: cd e2e-test
+      - run: pnpm i
+        shell: bash
+      - name: run app background
+        run: pnpm run dev &
+        shell: bash
+      - name: productionのスクショを撮る
+        run: pnpm playwright test --project=vrt --update-snapshots
+        if: ${{ always() }}
+        env:
+          BASE_URL: https://todo-app-qajp.vercel.app
+      - name: localのスクショと比較
+        run: pnpm playwright test --project=vrt
+        if: ${{ always() }}
+        env:
+          BASE_URL: https://localhost:3000
+      - name: Upload failed screenshots
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: vrt-failed-screenshots-${{ github.sha }}
+          path: test-results
