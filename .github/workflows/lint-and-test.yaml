@@ -1,0 +1,35 @@
+name: 'lint and test'
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+          registry-url: 'https://npm.pkg.github.com/'
+          node-version: 22
+      - run: pnpm i
+        shell: bash
+      - run: pnpm lint
+        shell: bash
+
+  unit-test:
+    steps:
+      - run: echo 'test'
+
+  api-test:
+    steps:
+      - run: echo 'runn'
+
+  e2e-test:
+    steps:
+      - run: echo 'playwright'
