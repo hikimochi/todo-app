@@ -1,4 +1,4 @@
-name: "lint and test"
+name: "e2e-test"
 
 on:
   pull_request:
@@ -7,6 +7,9 @@ on:
 jobs:
   e2e-test:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: e2e-test
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
@@ -19,4 +22,10 @@ jobs:
           node-version: 22
       - run: pnpm i
         shell: bash
-      - run: echo 'playwright'
+      - run: pnpm playwright install chromium
+        shell: bash
+      - run: pnpm playwright test --project=todo-app
+        env:
+          BASE_URL: https://todo-app-qajp.vercel.app
+          EMAIL: ${{ secrets.EMAIL }}
+          PASSWORD: ${{ secrets.PASSWORD }}

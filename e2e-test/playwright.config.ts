@@ -26,7 +26,7 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: 'https://todo-app-qajp.vercel.app/',
+    baseURL: process.env.BASE_URL as string,
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
@@ -38,9 +38,16 @@ export default defineConfig({
     { name: 'setup', testMatch: '/setup/*.ts' },
 
     {
-      name: 'chromium',
+      name: 'todo-app',
+      testMatch: '/tests/*.ts',
       use: { ...devices['Desktop Chrome'] },
       dependencies: ['setup'],
+    },
+
+    {
+      name: 'vrt',
+      testMatch: '/vrt/*.ts',
+      use: { ...devices['Desktop Chrome'] },
     },
 
     // {
