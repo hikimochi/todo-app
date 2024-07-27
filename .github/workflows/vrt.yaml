@@ -22,11 +22,11 @@ jobs:
           node-version: 22
       - run: pnpm i
         shell: bash
-      - run: cd e2e-test
-      - run: pnpm i
-        shell: bash
       - name: run app background
         run: pnpm run dev &
+        shell: bash
+      - run: cd e2e-test
+      - run: pnpm i
         shell: bash
       - name: productionのスクショを撮る
         run: pnpm playwright test --project=vrt --update-snapshots
