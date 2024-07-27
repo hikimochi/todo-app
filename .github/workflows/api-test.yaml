@@ -19,6 +19,8 @@ jobs:
           node-version: 22
       - run: pnpm i
         shell: bash
-      - run: pnpm run dev
+      - run: cp .env.example .env
+      - name: run app background
+        run: pnpm run dev &
         shell: bash
       - run: echo 'runn'
